@@ -25,9 +25,9 @@ namespace HW_20.Infrastructure.Configuration
                    .HasComment("شماره پلاک قسمت سوم خودرو");
 
             // رابطه با مدل خودرو
-            builder.HasOne(c => c.Model)
+            builder.HasOne(c => c.CarModel)
                    .WithMany(c => c.Cars) // مدل خودرو می‌تواند چندین خودرو داشته باشد
-                   .HasForeignKey(c => c.ModelId) //کلید خارجی مدل خودرو
+                   .HasForeignKey(c => c.CarModelId) //کلید خارجی مدل خودرو
                    .OnDelete(DeleteBehavior.Restrict);
 
             // رابطه با تولیدکننده خودرو

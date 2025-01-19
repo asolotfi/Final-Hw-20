@@ -21,6 +21,7 @@ namespace HW_20.Infrastructure.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<InspectionRequest>().HasOne(X => X.Car).WithMany(Y => Y.InspectionRequests).HasForeignKey(X => X.CarId).OnDelete(DeleteBehavior.Restrict);
             // Fluent API configurations
         }
     }

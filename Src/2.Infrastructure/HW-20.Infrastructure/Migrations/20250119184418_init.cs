@@ -61,7 +61,7 @@ namespace HW_20.Infrastructure.Migrations
                     Number2 = table.Column<int>(type: "int", nullable: false),
                     StringNumber = table.Column<int>(type: "int", nullable: false),
                     Number3 = table.Column<int>(type: "int", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false),
+                    CarModelId = table.Column<int>(type: "int", nullable: false),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false),
                     ProductionYear = table.Column<int>(type: "int", nullable: false)
                 },
@@ -75,8 +75,8 @@ namespace HW_20.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cars_CarModels_ModelId",
-                        column: x => x.ModelId,
+                        name: "FK_Cars_CarModels_CarModelId",
+                        column: x => x.CarModelId,
                         principalTable: "CarModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -88,6 +88,12 @@ namespace HW_20.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    codeMeli = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number2 = table.Column<int>(type: "int", nullable: false),
+                    Number3 = table.Column<int>(type: "int", nullable: false),
+                    Number4 = table.Column<int>(type: "int", nullable: false),
+                    StringNumber = table.Column<int>(type: "int", nullable: false),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     IsRejected = table.Column<bool>(type: "bit", nullable: false),
@@ -109,18 +115,18 @@ namespace HW_20.Infrastructure.Migrations
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cars_CarModelId",
+                table: "Cars",
+                column: "CarModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_ManufacturerId",
                 table: "Cars",
                 column: "ManufacturerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cars_ModelId",
-                table: "Cars",
-                column: "ModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InspectionRequests_CarId",

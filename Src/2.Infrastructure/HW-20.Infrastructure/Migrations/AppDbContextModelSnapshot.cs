@@ -30,10 +30,10 @@ namespace HW_20.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ManufacturerId")
+                    b.Property<int>("CarModelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModelId")
+                    b.Property<int>("ManufacturerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Number2")
@@ -50,9 +50,9 @@ namespace HW_20.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManufacturerId");
+                    b.HasIndex("CarModelId");
 
-                    b.HasIndex("ModelId");
+                    b.HasIndex("ManufacturerId");
 
                     b.ToTable("Cars");
                 });
@@ -111,11 +111,31 @@ namespace HW_20.Infrastructure.Migrations
                     b.Property<bool>("IsRejected")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Number2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Number3")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Number4")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("StringNumber")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("codeMeli")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -153,29 +173,29 @@ namespace HW_20.Infrastructure.Migrations
 
             modelBuilder.Entity("HW_20.Domain.Entites.Car.Car", b =>
                 {
+                    b.HasOne("HW_20.Domain.Entites.Car.CarModel", "CarModel")
+                        .WithMany("Cars")
+                        .HasForeignKey("CarModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HW_20.Domain.Entites.Car.CarManufacturer", "Manufacturer")
                         .WithMany("Cars")
                         .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HW_20.Domain.Entites.Car.CarModel", "Model")
-                        .WithMany("Cars")
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CarModel");
 
                     b.Navigation("Manufacturer");
-
-                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("HW_20.Domain.Entites.Car.InspectionRequest", b =>
                 {
                     b.HasOne("HW_20.Domain.Entites.Car.Car", "Car")
-                        .WithMany()
+                        .WithMany("InspectionRequests")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HW_20.Domain.Entites.Car.CarModel", "CarModel")
@@ -187,6 +207,11 @@ namespace HW_20.Infrastructure.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("CarModel");
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.Car", b =>
+                {
+                    b.Navigation("InspectionRequests");
                 });
 
             modelBuilder.Entity("HW_20.Domain.Entites.Car.CarManufacturer", b =>

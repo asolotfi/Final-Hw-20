@@ -11,8 +11,8 @@ namespace HW_20.Domain.Entites.Car
         public StringNumberEnum StringNumber { get; set; }
         public int Number3 { get; set; }
         // مدل خودرو
-        public int ModelId { get; set; }
-        public CarModel Model { get; set; }
+        public int CarModelId { get; set; }
+        public CarModel CarModel { get; set; }
         // تولیدکننده خودرو
         public int ManufacturerId { get; set; }
         public CarManufacturer Manufacturer { get; set; }
