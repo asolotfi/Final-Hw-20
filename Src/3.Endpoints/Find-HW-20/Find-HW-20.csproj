@@ -1,23 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>HW_20.Domain</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Find_HW_20</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Dto\" />
-    <Folder Include="Entites\BaseEntities\" />
-    <Folder Include="Entites\Configs\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\1.Domain\Core\HW-20.Domain\HW-20.Domain.csproj" />
+    <ProjectReference Include="..\..\2.Infrastructure\HW-20.Infrastructure\HW-20.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
