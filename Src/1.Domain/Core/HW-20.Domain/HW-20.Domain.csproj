@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Dto\" />
     <Folder Include="Entites\BaseEntities\" />
-    <Folder Include="Entites\Configs\" />
   </ItemGroup>
 
   <ItemGroup>

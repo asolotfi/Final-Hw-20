@@ -1,4 +1,11 @@
+﻿using HW_20.Domain.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+// بارگذاری تنظیمات از appsettings.json
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
