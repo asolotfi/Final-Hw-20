@@ -8,11 +8,7 @@ public class InspectionRequestConfig : IEntityTypeConfiguration<InspectionReques
     {
         builder.HasKey(ir => ir.Id);
 
-        builder.HasOne(ir => ir.Car)
-          .WithMany(c => c.InspectionRequests)
-          .HasForeignKey(ir => ir.CarId)
-          .OnDelete(DeleteBehavior.NoAction); // تغییر رفتار به NoAction
-
+      
     }
 }
 

@@ -5,6 +5,8 @@ namespace HW_20.Domain.Contract.Sevice
 {
     public interface IInspectionRequestService
     {
-        bool AddInspectionRequest(string PhoneNumber, string codeMeli, int Number2, StringNumberEnum StringNumber, int Number3, Car Car, CarModel CarModel);
+        bool AddInspectionRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate);
+        bool AddOldCarRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate);
+        List<InspectionRequest> Get(RequestStatusEnum status);
     }
 }

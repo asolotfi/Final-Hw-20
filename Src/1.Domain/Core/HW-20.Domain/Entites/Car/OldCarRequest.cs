@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HW_20.Domain.Entites.Car
 {
-    public class InspectionRequest
+    public class OldCarRequest
     {
-        #region Properties
         public int Id { get; set; }
         [Required(ErrorMessage = "شماره موبایل را وارد کنید")]
         [RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "فرمت شماره موبایل صحیح نمی باشد")]
@@ -25,6 +24,6 @@ namespace HW_20.Domain.Entites.Car
         [Required(ErrorMessage = "لطفاً نام شرکت را وارد کنید")]
         public string Company { get; set; }
         public DateTime ProductionDate { get; set; }
-        #endregion
     }
+
 }

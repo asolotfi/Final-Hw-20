@@ -1,13 +1,15 @@
-﻿namespace HW_20.Infrastructure.Configuration
+﻿using Microsoft.Extensions.Configuration;
+
+namespace HW_20.Infrastructure.Configuration
 {
     public class Configuration
     {
-        public static string configurationstring { get; set; }
-        static Configuration()
+        public static string ConfigurationString { get; set; }
+
+        public Configuration(IConfiguration configuration)
         {
-            //configurationstring = "Data Source=ASO-LOTFI\\SQLEXPRESS;Initial Catalog=LibraryDb;Integrated Security=True;TrustServerCertificate=True";
-            //configurationstring = "Data Source=ASO\\SQLEXPRESS;Initial Catalog=LibraryDbcw13;Integrated Security=True;TrustServerCertificate=True";
-            configurationstring = "Data Source= ASO-LOTFI\\SQLEXPRESS;Initial Catalog=Hw-20;Integrated Security=True;TrustServerCertificate=True";
+            ConfigurationString = configuration.GetConnectionString("DefaultConnection");
         }
     }
 }
+

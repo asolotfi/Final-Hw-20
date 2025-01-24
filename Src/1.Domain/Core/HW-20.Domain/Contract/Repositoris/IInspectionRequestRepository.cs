@@ -5,7 +5,10 @@ namespace HW_20.Domain.Contract.Repositoris
 {
     public interface IInspectionRequestRepository
     {
-        //DateTime RequestDate, string PhoneNumber , string codeMeli, int Number2,StringNumberEnum StringNumber, int Number3, bool IsApproved, bool IsRejected, int UserId, int CarId, Car Car, int CarModelId, CarModel CarModel
-        bool AddInspectionRequest(string PhoneNumber , string codeMeli, int Number2,StringNumberEnum StringNumber, int Number3,Car Car,CarModel CarModel);
+
+        bool AddInspectionRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate);
+        bool AddOldCarRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate);
+        List<InspectionRequest> Get(RequestStatusEnum status);
+        InspectionRequest GetInspectionRequest(int id, RequestStatusEnum status);
     }
 }
