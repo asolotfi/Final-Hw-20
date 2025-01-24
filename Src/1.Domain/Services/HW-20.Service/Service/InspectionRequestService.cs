@@ -63,7 +63,7 @@ namespace HW_20.Service.Service
         private bool IsCarOlderThanFiveYears(DateTime ProductionDate)
         {
             var result = DateTime.Now.Year - ProductionDate.Year;
-            return result < 5;
+            return result > 5;
         }
         public bool AddOldCarRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate)
         {
