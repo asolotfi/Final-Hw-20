@@ -22,6 +22,86 @@ namespace HW_20.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CarCarModel", b =>
+                {
+                    b.Property<int>("CarsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("carModelsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarsId", "carModelsId");
+
+                    b.HasIndex("carModelsId");
+
+                    b.ToTable("CarCarModel");
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.Car", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CardModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManufacturerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManufacturerId");
+
+                    b.ToTable("c");
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.CarManufacturer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarManufacturer");
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.CarModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("carModels");
+                });
+
             modelBuilder.Entity("HW_20.Domain.Entites.Car.InspectionRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -127,6 +207,37 @@ namespace HW_20.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CarCarModel", b =>
+                {
+                    b.HasOne("HW_20.Domain.Entites.Car.Car", null)
+                        .WithMany()
+                        .HasForeignKey("CarsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HW_20.Domain.Entites.Car.CarModel", null)
+                        .WithMany()
+                        .HasForeignKey("carModelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.Car", b =>
+                {
+                    b.HasOne("HW_20.Domain.Entites.Car.CarManufacturer", "Manufacturer")
+                        .WithMany("Cars")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manufacturer");
+                });
+
+            modelBuilder.Entity("HW_20.Domain.Entites.Car.CarManufacturer", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

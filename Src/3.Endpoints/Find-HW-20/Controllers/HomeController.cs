@@ -40,6 +40,11 @@ namespace Find_HW_20.Controllers
             var requests = _appDbContext.InspectionRequests.ToList();
             return View(requests);
         }
+        public IActionResult CarModel()
+        {
+            var requests = _appDbContext.carModels.ToList();
+            return View(requests);
+        }
         public IActionResult Get()
         {
             // دریافت درخواست‌ها و برگرداندن به ویو

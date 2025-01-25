@@ -16,8 +16,8 @@ namespace HW_20.Infrastructure.Configuration
 
             // رابطه با مدل خودرو
             builder.HasOne(c => c.carModels)
-                   .WithMany(c => c.car) // مدل خودرو می‌تواند چندین خودرو داشته باشد
-                   .HasForeignKey(c => c.CarModelId) //کلید خارجی مدل خودرو
+                   .WithMany() // مدل خودرو می‌تواند چندین خودرو داشته باشد
+                   .HasForeignKey(c => c.CardModelId) //کلید خارجی مدل خودرو
                    .OnDelete(DeleteBehavior.Restrict);
 
             // رابطه با تولیدکننده خودرو

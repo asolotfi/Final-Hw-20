@@ -1,5 +1,4 @@
 ﻿using HW_20.Domain.Contract.Repositoris;
-using HW_20.Domain.Contract.Sevice;
 using HW_20.Domain.Entites.Car;
 using HW_20.Domain.Enum;
 using HW_20.Infrastructure.DB;
@@ -24,6 +23,11 @@ namespace Find_HW_20.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult Get()
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult AddCarModel()
         {
             return View();
@@ -36,13 +40,13 @@ namespace Find_HW_20.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public IActionResult AddCarModel(string name)
         {
             var cardModel = new CarModel
             {
-              Name = name,
+                Name = name,
             };
             if (!ModelState.IsValid)
             {
@@ -50,7 +54,7 @@ namespace Find_HW_20.Controllers
                 return View("Index", cardModel);
             }
 
-            TempData["SuccessMessage"] = "درخواست معاینه فنی ثبت شد.";
+            TempData["SuccessMessage"] = "مدل ثبت شد.";
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -61,53 +65,46 @@ namespace Find_HW_20.Controllers
                 var request = _appDbContext.InspectionRequests.Find(id);
                 if (request == null)
                 {
-                    TempData["ErrorMessage"] = "درخواست معاینه پیدا نشد.";
+                    TempData["ErrorMessage"] = "مدل پیدا نشد.";
                     return RedirectToAction("Index");
                 }
 
                 request.Status = RequestStatusEnum.Approved;
                 _appDbContext.SaveChanges();
-                TempData["SuccessMessage"] = "درخواست معاینه تأیید شد.";
+                TempData["SuccessMessage"] = "مدل تأیید شد.";
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "خطایی در تأیید درخواست رخ داد.";
+                TempData["ErrorMessage"] = "خطایی در تأیید مدل رخ داد.";
                 Console.WriteLine(ex.Message);
             }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult EditCarModel(int id , string name)
+        {
+            var cardModel = new CarModel
+            {
+                Id = id,
+                Name=name
+            };
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "لطفاً داده‌ها را به صورت صحیح وارد کنید.";
+                return View("Index", cardModel);
+            }
+
+            TempData["SuccessMessage"] = "مدل جدید ثبت شد.";
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult Reject(int id)
-        {
-            try
-            {
-                var request = _appDbContext.InspectionRequests.Find(id);
-                if (request != null)
-                {
-                    request.Status = RequestStatusEnum.Rejected;
-                    _appDbContext.SaveChanges();
-                    TempData["SuccessMessage"] = "درخواست معاینه رد شد.";
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "درخواست معاینه پیدا نشد.";
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "خطایی در رد درخواست رخ داد.";
-                Console.WriteLine(ex.Message);
-            }
-            return RedirectToAction("Index");
-        }
         [HttpGet]
-        public IActionResult Get(RequestStatusEnum status)
+        public IActionResult Get(int id)
         {
-            var result = _InspectionRequestService.Get(status);
+            var result = _CarModelSevice.GetCarModel(id);
             if (result == null)
             {
-                TempData["ErrorMessage"] = "درخواستی وجود ندارد.";
+                TempData["ErrorMessage"] = "مدل وجود ندارد.";
                 return RedirectToAction("Show");
             }
             else

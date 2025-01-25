@@ -26,9 +26,7 @@ namespace HW_20.Infrastructure.DB
             _configuration = configuration;
         }
 
-        public AppDbContext()
-        {
-        }
+  
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
