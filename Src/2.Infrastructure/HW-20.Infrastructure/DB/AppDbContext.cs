@@ -12,7 +12,7 @@ namespace HW_20.Infrastructure.DB
         public DbSet<InspectionRequest> InspectionRequests { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<OldCarRequest> OldCarRequest { get; set; }
-        public DbSet<Car> c { get; set; }
+        public DbSet<Car> cars { get; set; }
         public DbSet<CarModel> carModels { get; set; }
         
 

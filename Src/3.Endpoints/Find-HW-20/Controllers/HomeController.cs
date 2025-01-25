@@ -1,14 +1,11 @@
-﻿using Azure.Core;
-using Find_HW_20.Models;
+﻿using Find_HW_20.Models;
+using HW_20.Domain.Contract.Repositoris;
 using HW_20.Domain.Contract.Service;
 using HW_20.Domain.Contract.Sevice;
 using HW_20.Domain.Entites.Car;
 using HW_20.Domain.Enum;
 using HW_20.Infrastructure.DB;
-using HW_20.Service.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Diagnostics;
 
 namespace Find_HW_20.Controllers
@@ -19,13 +16,15 @@ namespace Find_HW_20.Controllers
         private readonly IInspectionRequestService _InspectionRequestService;
         private readonly AppDbContext _appDbContext;
         private readonly IAuthenticationAppService _AuthenticationAppService;
+        private readonly ICarModelSevice _CarModelSevice;
 
-        public HomeController(ILogger<HomeController> logger, IInspectionRequestService InspectionRequestService, AppDbContext appDbContext, IAuthenticationAppService AuthenticationAppService)
+        public HomeController(ILogger<HomeController> logger, IInspectionRequestService InspectionRequestService, AppDbContext appDbContext, IAuthenticationAppService AuthenticationAppService, ICarModelSevice CarModelSevice)
         {
             _logger = logger;
             _InspectionRequestService = InspectionRequestService;
             _appDbContext = appDbContext;
             _AuthenticationAppService = AuthenticationAppService;
+            _CarModelSevice = CarModelSevice;
         }
         public IActionResult Index()
         {
@@ -35,7 +34,7 @@ namespace Find_HW_20.Controllers
         {
             return View();
         }
-             public IActionResult Show()
+        public IActionResult Show()
         {
             var requests = _appDbContext.InspectionRequests.ToList();
             return View(requests);
@@ -63,7 +62,7 @@ namespace Find_HW_20.Controllers
         {
             return View();
         }
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -71,7 +70,7 @@ namespace Find_HW_20.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpGet]
-  
+
         [HttpGet]
         public IActionResult createInspection(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string companyt)
         {
@@ -182,7 +181,7 @@ namespace Find_HW_20.Controllers
             }
             return RedirectToAction("Show");
         }
-     
+
         [HttpGet]
         public IActionResult Get(RequestStatusEnum status)
         {
@@ -193,7 +192,7 @@ namespace Find_HW_20.Controllers
                 return RedirectToAction("Show");
             }
             else
-                return View("Show",result);
+                return View("Show", result);
         }
         public IActionResult Success()
         {
@@ -212,6 +211,46 @@ namespace Find_HW_20.Controllers
                 return View("Show");
             }
         }
+        [HttpPost]
+        public IActionResult AddCarModel(string name)
+        {
+            var cardModel = new CarModel
+            {
+                Name = name,
+            };
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "لطفاً داده‌ها را به صورت صحیح وارد کنید.";
+                return View("Index", cardModel);
+            }
+
+            TempData["SuccessMessage"] = "مدل ثبت شد.";
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult DeleteCarModel(int id)
+        {
+            try
+            {
+                var request = _appDbContext.InspectionRequests.Find(id);
+                if (request == null)
+                {
+                    TempData["ErrorMessage"] = "مدل پیدا نشد.";
+                    return RedirectToAction("Index");
+                }
+
+                request.Status = RequestStatusEnum.Approved;
+                _appDbContext.SaveChanges();
+                TempData["SuccessMessage"] = "مدل تأیید شد.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "خطایی در تأیید مدل رخ داد.";
+                Console.WriteLine(ex.Message);
+            }
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

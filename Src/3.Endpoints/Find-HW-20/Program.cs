@@ -34,7 +34,11 @@ builder.Services.AddScoped<IInspectionRequestRepository, InspectionRequestReposi
 builder.Services.AddScoped<IAuthenticationAppService, AuthenticationAppService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+builder.Services.AddScoped<ICarModelSevice, CarModelSevice>();
+builder.Services.AddScoped<ICarModelAppSevice, CarModelAppSevice>();
+builder.Services.AddScoped<ICarModelRepository, CarModelRepository>();
 builder.Services.AddControllersWithViews().AddDataAnnotationsLocalization();
+
 
 var app = builder.Build();
 
