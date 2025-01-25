@@ -59,7 +59,7 @@ namespace HW_20.Infrastructure.Migrations
 
                     b.HasIndex("ManufacturerId");
 
-                    b.ToTable("c");
+                    b.ToTable("cars");
                 });
 
             modelBuilder.Entity("HW_20.Domain.Entites.Car.CarManufacturer", b =>

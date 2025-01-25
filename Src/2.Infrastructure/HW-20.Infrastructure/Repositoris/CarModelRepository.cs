@@ -60,21 +60,18 @@ namespace HW_20.Domain.Contract.Repositoris
             }
         }
 
-        public bool EditCarModel(int id, string name )
+        public bool EditCarModel(int id, string name)
         {
-            var result = _appDbContext.carModels.Any(x => x.Id == id);
+            var carModel = _appDbContext.carModels.Find(id);
+            if (carModel == null)
+            {
+                return false; // مدل پیدا نشد
+            }
+
             try
             {
-                if (id == null || !result)
-                {
-                    return false;
-                }
-                var CarModel = new CarModel
-                {
-                    Name = name,
-                };
-                _appDbContext.carModels.Update(CarModel);
-                _appDbContext.SaveChanges();
+                carModel.Name = name; // تغییر نام مدل
+                _appDbContext.SaveChanges(); // ذخیره تغییرات
                 return true;
             }
             catch (Exception ex)
@@ -83,6 +80,8 @@ namespace HW_20.Domain.Contract.Repositoris
                 throw new ApplicationException("خطا در زمان ویرایش مدل", ex);
             }
         }
+
+
 
         public CarModel GetCarModel(int id)
         {

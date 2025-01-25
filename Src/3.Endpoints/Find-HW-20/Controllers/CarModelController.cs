@@ -1,4 +1,5 @@
 ﻿using HW_20.Domain.Contract.Repositoris;
+using HW_20.Domain.Contract.Service;
 using HW_20.Domain.Entites.Car;
 using HW_20.Domain.Enum;
 using HW_20.Infrastructure.DB;
@@ -81,22 +82,34 @@ namespace Find_HW_20.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult EditCarModel(int id , string name)
+        public IActionResult EditeCarModel(int id, string name)
         {
-            var cardModel = new CarModel
+            var model = _appDbContext.carModels.Find(id);
+            if (model == null)
             {
-                Id = id,
-                Name=name
-            };
+                TempData["ErrorMessage"] = "مدل مورد نظر پیدا نشد.";
+                return RedirectToAction("CarModel");
+            }
+
             if (!ModelState.IsValid)
             {
                 TempData["ErrorMessage"] = "لطفاً داده‌ها را به صورت صحیح وارد کنید.";
-                return View("Index", cardModel);
+                return View("Index", model);
             }
 
-            TempData["SuccessMessage"] = "مدل جدید ثبت شد.";
-            return RedirectToAction("Index");
+            var result = _CarModelSevice.EditCarModel(id, name);
+            if (result)
+            {
+                TempData["SuccessMessage"] = "عملیات ویرایش با موفقیت انجام شد.";
+                return RedirectToAction("CarModel");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "ویرایش ناموفق بود.";
+                return View("CarModel");
+            }
         }
+
 
         [HttpGet]
         public IActionResult Get(int id)

@@ -100,10 +100,6 @@
                             <td>@car.Id</td>
                             <td>@car.Name</td>
                             <td>
-                                <form asp-controller="Home" asp-action="AddCarModel" method="post" style="display:inline;">
-                                    <input type="hidden" name="id" value="@car.Id" />
-                                    <button type="submit" class="btn btn-update">اضافه</button>
-                                </form>
                                 <form asp-controller="Home" asp-action="EditCarModel" method="post" style="display:inline;">
                                     <input type="hidden" name="id" value="@car.Id" />
                                     <button type="submit" class="btn btn-delete">ویرایش</button>
@@ -122,11 +118,11 @@
                         <td colspan="7">هیچ مدلی جهت نمایش وجود ندارد.</td>
                     </tr>
                 }
-
+                <form asp-controller="Home" asp-action="AddCarModel" method="post">
+                    <button type="submit" class="btn btn-create">اضافه کردن مدل جدید</button>
+                </form>
             </tbody>
         </table>
-
-
     </div>
 </body>
 </html>

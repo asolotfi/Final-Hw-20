@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HW_20.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250125072418_init")]
+    [Migration("20250125130352_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace HW_20.Infrastructure.Migrations
 
                     b.HasIndex("ManufacturerId");
 
-                    b.ToTable("c");
+                    b.ToTable("cars");
                 });
 
             modelBuilder.Entity("HW_20.Domain.Entites.Car.CarManufacturer", b =>

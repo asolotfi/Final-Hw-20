@@ -1,4 +1,5 @@
-﻿using HW_20.Domain.Enum;
+﻿using HW_20.Domain.Entites.Attirbute;
+using HW_20.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace HW_20.Domain.Entites.Car
@@ -7,8 +8,8 @@ namespace HW_20.Domain.Entites.Car
     {
         #region Properties
         public int Id { get; set; }
-        [Required(ErrorMessage = "شماره موبایل را وارد کنید")]
-        [RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "فرمت شماره موبایل صحیح نمی باشد")]
+        [PhoneNumberValidation(ErrorMessage = "شماره موبایل را وارد کنید")]
+        //[RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "فرمت شماره موبایل صحیح نمی باشد")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "کد ملی الزامی است.")]

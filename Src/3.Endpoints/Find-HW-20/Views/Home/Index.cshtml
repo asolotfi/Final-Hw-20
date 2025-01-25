@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@if (TempData["ErrorMessage"] != null)
+@* @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
+} *@
 <div class="text-center">
 
    <!DOCTYPE html>
@@ -90,7 +90,7 @@
 </head>
 <body>
     <div class="container">
-            <!-- نمایش پیام خطا -->
+     @*        <!-- نمایش پیام خطا -->
             @if (TempData["ErrorMessage"] != null)
             {
                 <div class="alert alert-danger">
@@ -104,9 +104,9 @@
                 <div class="alert alert-success">
                     @TempData["SuccessMessage"]
                 </div>
-            }
+            } *@
         <div class="card">
-          
+                <div asp-validation-summary="All" class="text-danger"></div>
             <!-- فرم ثبت درخواست -->
             <form asp-controller="Home" asp-action="CreateInspectionRequest" method="post" class="box">
                 <h1>ثبت درخواست</h1>
@@ -114,7 +114,7 @@
 
                 <div class="form-group">
                     <input type="text" asp-for="PhoneNumber" placeholder="شماره موبایل" class="form-control"  />
-                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                    <span class="text-danger" asp-validation-for="@Model.PhoneNumber"></span>
                 </div>
 
                 <div class="form-group">
@@ -144,9 +144,9 @@
             </form>
         </div>
     </div>
-        @section Scripts {
+       @*  @section Scripts {
             <partial name="_ValidationScriptsPartial" />
-        }
+        } *@
 </body>
 </html>
 

@@ -94,7 +94,7 @@ namespace HW_20.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "c",
+                name: "cars",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -105,9 +105,9 @@ namespace HW_20.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_c", x => x.Id);
+                    table.PrimaryKey("PK_cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_c_CarManufacturer_ManufacturerId",
+                        name: "FK_cars_CarManufacturer_ManufacturerId",
                         column: x => x.ManufacturerId,
                         principalTable: "CarManufacturer",
                         principalColumn: "Id",
@@ -125,28 +125,28 @@ namespace HW_20.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_CarCarModel", x => new { x.CarsId, x.carModelsId });
                     table.ForeignKey(
-                        name: "FK_CarCarModel_c_CarsId",
-                        column: x => x.CarsId,
-                        principalTable: "c",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_CarCarModel_carModels_carModelsId",
                         column: x => x.carModelsId,
                         principalTable: "carModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarCarModel_cars_CarsId",
+                        column: x => x.CarsId,
+                        principalTable: "cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_c_ManufacturerId",
-                table: "c",
-                column: "ManufacturerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CarCarModel_carModelsId",
                 table: "CarCarModel",
                 column: "carModelsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_cars_ManufacturerId",
+                table: "cars",
+                column: "ManufacturerId");
         }
 
         /// <inheritdoc />
@@ -165,10 +165,10 @@ namespace HW_20.Infrastructure.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "c");
+                name: "carModels");
 
             migrationBuilder.DropTable(
-                name: "carModels");
+                name: "cars");
 
             migrationBuilder.DropTable(
                 name: "CarManufacturer");
