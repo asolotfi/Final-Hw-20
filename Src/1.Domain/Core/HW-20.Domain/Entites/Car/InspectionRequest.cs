@@ -8,10 +8,7 @@ namespace HW_20.Domain.Entites.Car
     {
         #region Properties
         public int Id { get; set; }
-        [PhoneNumberValidation(ErrorMessage = "شماره موبایل را وارد کنید")]
-        //[RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "فرمت شماره موبایل صحیح نمی باشد")]
         public string PhoneNumber { get; set; }
-
         [Required(ErrorMessage = "کد ملی الزامی است.")]
         [StringLength(10, ErrorMessage = "کد ملی باید 10 رقم باشد.")]
         public string CodeMeli { get; set; }

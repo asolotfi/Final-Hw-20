@@ -1,4 +1,5 @@
 ﻿using Find_HW_20.Models;
+using Find_HW_20.Models.CarManegment;
 using HW_20.Domain.Contract.Repositoris;
 using HW_20.Domain.Contract.Service;
 using HW_20.Domain.Contract.Sevice;
@@ -98,30 +99,33 @@ namespace Find_HW_20.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpGet]
-        public IActionResult createInspection(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string companyt)
+        public IActionResult createInspection(AddInspectionRequestViewModel model)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult CreateInspectionRequest(string PhoneNumber, string codeMeli, string PlateNumber, string Car, string company, DateTime ProductionDate)
+        public IActionResult CreateInspectionRequest(AddInspectionRequestViewModel model)
         {
             var InspectionRequestq = new InspectionRequest
             {
-                PhoneNumber = PhoneNumber,
-                CodeMeli = codeMeli,
-                PlateNumber = PlateNumber,
-                Car = Car,
-                Company = company,
-                ProductionDate = ProductionDate,
+                PhoneNumber = model.PhoneNumber,
+                CodeMeli = model.CodeMeli,
+                PlateNumber = model.PlateNumber,
+                Car = model.Car,
+                Company = model.Company,
+                ProductionDate = model.ProductionDate,
 
             };
             if (!ModelState.IsValid)
             {
                 TempData["ErrorMessage"] = "لطفاً داده‌ها را به صورت صحیح وارد کنید.";
-                return View(InspectionRequestq);
+                ModelState.AddModelError("M1", "جرا همه فرم خالی فرستادی ");
+                ModelState.AddModelError("M1", "فیلد ها رو درست پر کن ");
+                return View("Index");
+                //return BadRequest();
             }
 
-            else if (!_InspectionRequestService.AddInspectionRequest(PhoneNumber, codeMeli, PlateNumber, Car, company, ProductionDate))
+            else if (!_InspectionRequestService.AddInspectionRequest(model.PhoneNumber, model.CodeMeli, model.PlateNumber, model.Car, model.Company, model.ProductionDate))
             {
                 TempData["ErrorMessage"] = "درخواست معاینه ثبت نشد.";
                 return RedirectToAction("Index");

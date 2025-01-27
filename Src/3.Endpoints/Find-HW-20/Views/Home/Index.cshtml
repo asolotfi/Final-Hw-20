@@ -1,4 +1,6 @@
-﻿@model HW_20.Domain.Entites.Car.InspectionRequest
+﻿@using Find_HW_20.Models.CarManegment
+@* @model HW_20.Domain.Entites.Car.InspectionRequest *@
+@model AddInspectionRequestViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -12,7 +14,7 @@
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <title>اضافه کردن </title>
+    <title>ثبت درخواست معاینه فنی </title>
     <style>
         body {
             margin: 0;
@@ -110,7 +112,7 @@
             <!-- فرم ثبت درخواست -->
             <form asp-controller="Home" asp-action="CreateInspectionRequest" method="post" class="box">
                 <h1>ثبت درخواست</h1>
-                <p class="text-muted">لطفاً اطلاعات را وارد کنید!</p>
+                <p class="text-muted">لطفاً اطلاعات را وارد کنید</p>
 
                 <div class="form-group">
                     <input type="text" asp-for="PhoneNumber" placeholder="شماره موبایل" class="form-control"  />
