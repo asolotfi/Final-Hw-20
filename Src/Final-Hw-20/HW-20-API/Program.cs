@@ -8,7 +8,8 @@ using HW_20.Infrastructure.Repositoris;
 using HW_20.Service.AppService;
 using HW_20.Service.Service;
 using Microsoft.EntityFrameworkCore;
-using Scalar.AspNetCore;
+using Microsoft.OpenApi.Models;  // برای OpenAPI و Swagger
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,8 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+//builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IInspectionRequestAppService, InspectionRequestAppService>();
 builder.Services.AddScoped<IInspectionRequestService, InspectionRequestService>();
 builder.Services.AddScoped<IInspectionRequestRepository, InspectionRequestRepository>();
