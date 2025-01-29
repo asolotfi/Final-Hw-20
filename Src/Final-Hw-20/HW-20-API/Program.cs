@@ -8,6 +8,7 @@ using HW_20.Infrastructure.Repositoris;
 using HW_20.Service.AppService;
 using HW_20.Service.Service;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiRefrence();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
