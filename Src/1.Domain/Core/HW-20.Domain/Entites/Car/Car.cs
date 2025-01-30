@@ -8,7 +8,7 @@
         #endregion
         #region NavigationProperties
         public int CardModelId { get; set; }
-        public List<CarModel> carModels { get; set; }
+        public List<CarModel> CarModels { get; set; }
         public int ManufacturerId { get; set; } 
         public CarManufacturer Manufacturer { get; set; }
         #endregion

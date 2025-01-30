@@ -8,7 +8,11 @@ using HW_20.Infrastructure.Repositoris;
 using HW_20.Service.AppService;
 using HW_20.Service.Service;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;  // برای OpenAPI و Swagger
+using Scalar.AspNetCore;  // برای OpenAPI و Swagger
+
+
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +52,18 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+
+
+// اضافه کردن Middleware برای احراز هویت با API Key
+//app.UseMiddleware<ApiKeyMiddleware>();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.UseHttpsRedirection();
 

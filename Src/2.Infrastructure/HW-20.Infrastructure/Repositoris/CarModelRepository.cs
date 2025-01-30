@@ -14,7 +14,7 @@ namespace HW_20.Domain.Contract.Repositoris
         }
         public bool AddCarModel(string name)
         {
-            var result=_appDbContext.carModels.Any(x => x.Name == name);
+            var result=_appDbContext.CarModels.Any(x => x.Name == name);
             try
             {
                 if (name == null || result)
@@ -25,7 +25,7 @@ namespace HW_20.Domain.Contract.Repositoris
                 {
                     Name = name,
                 };
-                _appDbContext.carModels.Add(CarModel);
+                _appDbContext.CarModels.Add(CarModel);
                 _appDbContext.SaveChanges();
                 return true;
             }
@@ -38,7 +38,7 @@ namespace HW_20.Domain.Contract.Repositoris
 
         public bool DeleteCarModel(int id)
         {
-            var result = _appDbContext.carModels.Any(x => x.Id == id);
+            var result = _appDbContext.CarModels.Any(x => x.Id == id);
             try
             {
                 if (id == null || !result)
@@ -49,7 +49,7 @@ namespace HW_20.Domain.Contract.Repositoris
                 {
                     Id = id,
                 };
-                _appDbContext.carModels.Remove(CarModel);
+                _appDbContext.CarModels.Remove(CarModel);
                 _appDbContext.SaveChanges();
                 return true;
             }
@@ -62,7 +62,7 @@ namespace HW_20.Domain.Contract.Repositoris
 
         public bool EditCarModel(int id, string name)
         {
-            var carModel = _appDbContext.carModels.Find(id);
+            var carModel = _appDbContext.CarModels.Find(id);
             if (carModel == null)
             {
                 return false; // مدل پیدا نشد
@@ -85,7 +85,7 @@ namespace HW_20.Domain.Contract.Repositoris
 
         public CarModel GetCarModel(int id)
         {
-            return _appDbContext.carModels.FirstOrDefault(x => x.Id == id);
+            return _appDbContext.CarModels.FirstOrDefault(x => x.Id == id);
         }
 
     }

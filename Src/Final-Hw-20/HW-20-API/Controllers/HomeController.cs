@@ -44,7 +44,7 @@ namespace HW_20_API.Controllers
         }
         public IActionResult CarModel()
         {
-            var requests = _appDbContext.carModels.ToList();
+            var requests = _appDbContext.CarModels.ToList();
             return View(requests);
         }
         public IActionResult Get()
@@ -279,7 +279,7 @@ namespace HW_20_API.Controllers
         [HttpPost]
         public IActionResult EditeCarModel(int id, string name)
         {
-            var model = _appDbContext.carModels.Find(id);
+            var model = _appDbContext.CarModels.Find(id);
             var cardModel = new CarModel
             {
                 Id = id,

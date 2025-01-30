@@ -43,9 +43,10 @@ namespace Find_HW_20.Controllers
             var requests = _appDbContext.InspectionRequests.ToList();
             return View(requests);
         }
+        //
         public IActionResult CarModel()
         {
-            var requests = _appDbContext.carModels.ToList();
+            var requests = _appDbContext.CarModels.ToList();
             return View(requests);
         }
         public IActionResult Get()
@@ -66,11 +67,13 @@ namespace Find_HW_20.Controllers
         {
             return View();
         }
+        //
         public IActionResult AddCarModel()
         {
             CarModel carModel = new CarModel(); // مطمئن شوید که مدل صحیح را ارسال می‌کنید
             return View(carModel);
         }
+        //
         [HttpPost]
         public IActionResult DeleteCarModel(int id)
         {
@@ -83,6 +86,7 @@ namespace Find_HW_20.Controllers
             DeletCarModel(id); // حذف مدل از دیتابیس
             return RedirectToAction("CarModel"); // بعد از حذف به صفحه لیست برگردید
         }
+        //
         [HttpPost]
         public IActionResult EditCarModel(int id)
         {
@@ -241,6 +245,7 @@ namespace Find_HW_20.Controllers
                 return View("Show");
             }
         }
+        //
         [HttpPost]
         public IActionResult AddCarModele(string name)
         {
@@ -257,6 +262,7 @@ namespace Find_HW_20.Controllers
             TempData["SuccessMessage"] = "مدل ثبت شد.";
             return RedirectToAction("CarModel");
         }
+        //
         [HttpPost]
         public IActionResult DeletCarModel(int id)
         {
@@ -277,10 +283,11 @@ namespace Find_HW_20.Controllers
             }
             return RedirectToAction("CarModel");
         }
+        //
         [HttpPost]
         public IActionResult EditeCarModel(int id, string name)
         {
-            var model = _appDbContext.carModels.Find(id);
+            var model = _appDbContext.CarModels.Find(id);
             var cardModel = new CarModel
             {
                 Id = id,
@@ -303,7 +310,7 @@ namespace Find_HW_20.Controllers
                 return View("CarModel");
             }
         }
-
+        //
         [HttpGet]
         public IActionResult Get(int id)
         {

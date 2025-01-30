@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Find_HW_20.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CarModelController : Controller
     {
 
@@ -84,7 +86,7 @@ namespace Find_HW_20.Controllers
         [HttpPost]
         public IActionResult EditeCarModel(int id, string name)
         {
-            var model = _appDbContext.carModels.Find(id);
+            var model = _appDbContext.CarModels.Find(id);
             if (model == null)
             {
                 TempData["ErrorMessage"] = "مدل مورد نظر پیدا نشد.";
@@ -110,7 +112,6 @@ namespace Find_HW_20.Controllers
             }
         }
 
-
         [HttpGet]
         public IActionResult Get(int id)
         {
@@ -123,7 +124,6 @@ namespace Find_HW_20.Controllers
             else
                 return View(result);
         }
-
 
         public IActionResult Success()
         {
